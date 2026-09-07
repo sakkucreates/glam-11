@@ -1,32 +1,30 @@
 import type { Metadata, Viewport } from "next";
+import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Green Trends Aliganj | Unisex Hair & Style Salon & Makeup Studio",
-  description: "Official demo site for Green Trends Aliganj, Lucknow. Professional haircuts, hair styling, colouring, skin care, facials, waxing & bridal makeover packages.",
-  keywords: [
-    "Green Trends Aliganj",
-    "Salon in Aliganj Lucknow",
-    "Hair Salon Lucknow",
-    "Makeup Studio Aliganj",
-    "Bridal Salon Lucknow",
-    "Unisex Salon Lucknow"
-  ],
-  openGraph: {
-    title: "Green Trends Aliganj | Unisex Hair & Style Salon & Makeup Studio",
-    description: "Professional hair, beauty, skin care and bridal services at Green Trends Aliganj, Lucknow.",
-    url: "https://mygreentrends.in",
-    siteName: "Green Trends Aliganj",
-    locale: "en_IN",
-    type: "website",
-  },
+  title: "Glam 11 | Beauty Salon & Makeup Studio in Naka Hindola, Lucknow",
+  description: "Top-rated beauty salon in Naka Hindola, Lucknow specializing in bridal makeup, HD makeup, hair styling, hair treatments & designer nail art. Led by Certified International Makeup Artist.",
+  keywords: "Glam 11, Glam 11 Lucknow, Bridal makeup Lucknow, Nail art Naka Hindola, Hair salon Lucknow, Beauty studio Naka Hindola",
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#FAF8F5",
+  themeColor: "#FBF8F6",
 };
 
 export default function RootLayout({
@@ -35,16 +33,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth antialiased">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="min-h-screen bg-[#FAF8F5] text-[#292525] font-sans selection:bg-[#E8C7C7] selection:text-[#292525] overflow-x-hidden">
+    <html lang="en" className={`${playfair.variable} ${jakarta.variable} scroll-smooth antialiased`}>
+      <body className="min-h-screen bg-[#FBF8F6] text-[#262222] font-sans selection:bg-[#E8C8C8] selection:text-[#262222] overflow-x-hidden">
         {children}
       </body>
     </html>

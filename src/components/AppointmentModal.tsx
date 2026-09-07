@@ -1,40 +1,35 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { X, Calendar, Clock, User, Phone, CheckCircle, Sparkles } from "lucide-react";
-import { SALON_INFO } from "../data/salonData";
+import { useState, useEffect } from "react";
+import { X, Phone, Sparkles, CheckCircle2 } from "lucide-react";
+import { GLAM11_INFO } from "@/data/glam11Data";
 
 interface AppointmentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  defaultService?: string;
 }
 
-export const AppointmentModal: React.FC<AppointmentModalProps> = ({
-  isOpen,
-  onClose,
-  defaultService = "Haircut & Styling"
-}) => {
+export default function AppointmentModal({ isOpen, onClose }: AppointmentModalProps) {
+  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    service: defaultService,
+    service: "Bridal Makeup",
     date: "",
-    time: "11:00 AM",
     notes: ""
   });
 
-  const [submitted, setSubmitted] = useState(false);
-
+  // Lock body scroll when modal is open
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (isOpen && e.key === "Escape") {
-        onClose();
-      }
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
     };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -49,177 +44,167 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
   };
 
   return (
-    <div
-      onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#292525]/60 backdrop-blur-sm animate-fade-in"
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden border border-[#EAE4DC] max-h-[90vh] flex flex-col"
-      >
-        {/* Header */}
-        <div className="bg-[#FAF8F5] px-6 py-4 sm:py-5 border-b border-[#EAE4DC] flex items-center justify-between shrink-0">
-          <div>
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-[#B77B83]">
-              Green Trends Aliganj Demo
-            </span>
-            <h3 className="text-lg sm:text-xl font-serif font-bold text-[#292525] mt-0.5">
-              Book an Appointment
-            </h3>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-2 text-[#756D6D] hover:text-[#292525] hover:bg-[#EAE4DC]/50 rounded-full transition-colors"
-            aria-label="Close modal"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+      <div className="bg-[#FBF8F6] rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-[#E8C8C8]/60 shadow-soft-lg relative max-h-[90vh] overflow-y-auto">
+        {/* Close Button */}
+        <button
+          onClick={handleReset}
+          className="absolute top-5 right-5 p-2 text-[#756E6E] hover:text-[#262222] rounded-full hover:bg-[#E8C8C8]/30 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+          aria-label="Close modal"
+        >
+          <X className="w-5 h-5" />
+        </button>
 
-        {/* Content */}
-        <div className="p-6 overflow-y-auto">
-          {submitted ? (
-            <div className="text-center py-4">
-              <div className="w-14 h-14 bg-[#E8C7C7]/30 text-[#B77B83] rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-8 h-8" />
+        {!submitted ? (
+          /* Form View */
+          <div className="space-y-5">
+            <div className="space-y-1 text-center sm:text-left pr-8">
+              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#E8C8C8]/40 text-[#B87882] text-[11px] font-semibold uppercase tracking-wider">
+                <Sparkles className="w-3 h-3" />
+                <span>Appointment Inquiry</span>
               </div>
-              <h4 className="text-xl sm:text-2xl font-serif font-bold text-[#292525] mb-2">
-                Demo Request Submitted!
-              </h4>
-              <p className="text-xs sm:text-sm text-[#756D6D] mb-4 leading-relaxed max-w-sm mx-auto">
-                Thank you <span className="font-semibold text-[#292525]">{formData.name || "Valued Guest"}</span>! Your request for <span className="font-semibold text-[#292525]">{formData.service}</span> on {formData.date || "your selected date"} at {formData.time} has been recorded in this demo modal.
+              <h3 className="font-serif text-2xl font-bold text-[#262222]">
+                Inquire About Availability
+              </h3>
+              <p className="text-xs text-[#756E6E] font-light">
+                Fill out your service preferences below to prepare your inquiry details before calling.
               </p>
-              <div className="bg-[#FAF8F5] p-3 rounded-lg border border-[#EAE4DC] text-xs text-[#756D6D] mb-6">
-                💡 <span className="font-medium text-[#292525]">Demonstration Note:</span> For real bookings, click the direct official booking link below.
-              </div>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <a
-                  href={SALON_INFO.bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-5 py-2.5 bg-[#B77B83] text-white text-xs font-semibold rounded-xl hover:bg-[#A36971] transition-colors shadow-sm text-center"
-                >
-                  Go to Official Booking Portal
-                </a>
-                <button
-                  onClick={handleReset}
-                  className="px-5 py-2.5 bg-[#FAF8F5] text-[#292525] text-xs font-medium rounded-xl border border-[#EAE4DC] hover:bg-[#EAE4DC]/50 transition-colors"
-                >
-                  Close Demo
-                </button>
-              </div>
             </div>
-          ) : (
+
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-[#292525] uppercase tracking-wider mb-1.5">
-                  Full Name
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#262222] mb-1">
+                  Your Full Name
                 </label>
-                <div className="relative">
-                  <User className="w-4 h-4 text-[#756D6D] absolute left-3 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="text"
-                    required
-                    placeholder="Enter your name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full pl-9 pr-4 py-2.5 bg-[#FAF8F5] border border-[#EAE4DC] rounded-xl text-sm text-[#292525] focus:outline-none focus:border-[#B77B83] focus:ring-1 focus:ring-[#B77B83]"
-                  />
-                </div>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Anjali Sharma"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#E8C8C8] text-xs text-[#262222] focus:outline-none focus:border-[#B87882]"
+                />
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-[#292525] uppercase tracking-wider mb-1.5">
-                  Phone Number
-                </label>
-                <div className="relative">
-                  <Phone className="w-4 h-4 text-[#756D6D] absolute left-3 top-1/2 -translate-y-1/2" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#262222] mb-1">
+                    Contact Phone
+                  </label>
                   <input
                     type="tel"
                     required
                     placeholder="+91 98765 43210"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full pl-9 pr-4 py-2.5 bg-[#FAF8F5] border border-[#EAE4DC] rounded-xl text-sm text-[#292525] focus:outline-none focus:border-[#B77B83] focus:ring-1 focus:ring-[#B77B83]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#E8C8C8] text-xs text-[#262222] focus:outline-none focus:border-[#B87882]"
                   />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#262222] mb-1">
+                    Service Focus
+                  </label>
+                  <select
+                    value={formData.service}
+                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#E8C8C8] text-xs text-[#262222] focus:outline-none focus:border-[#B87882]"
+                  >
+                    <option value="Bridal Makeup">Bridal Makeup (HD / Airbrush)</option>
+                    <option value="Party Makeup">Party / Engagement Makeup</option>
+                    <option value="Hair Styling">Hair Styling & Cuts</option>
+                    <option value="Hair Treatments">Hair Botox / Nano Plastia</option>
+                    <option value="Nail Extensions">Acrylic / Gel Nail Extensions</option>
+                    <option value="Nail Art">Custom Designer Nail Art</option>
+                    <option value="Beauty Care">Facial & Skincare</option>
+                  </select>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#292525] uppercase tracking-wider mb-1.5">
-                  Service Category
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#262222] mb-1">
+                  Preferred Date (Optional)
                 </label>
-                <select
-                  value={formData.service}
-                  onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                  className="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#EAE4DC] rounded-xl text-sm text-[#292525] focus:outline-none focus:border-[#B77B83] focus:ring-1 focus:ring-[#B77B83]"
-                >
-                  <option value="Haircut & Styling">Haircut & Styling</option>
-                  <option value="Hair Colouring & Highlights">Hair Colouring & Highlights</option>
-                  <option value="Hair Spa & Scalp Care">Hair Spa & Scalp Care</option>
-                  <option value="Skin Care & Glow Facial">Skin Care & Glow Facial</option>
-                  <option value="Bridal Makeover Package">Bridal Makeover Package</option>
-                  <option value="Men's Grooming & Beard Trim">Men's Grooming & Beard Trim</option>
-                  <option value="Waxing & Hair Removal">Waxing & Hair Removal</option>
-                </select>
+                <input
+                  type="date"
+                  value={formData.date}
+                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#E8C8C8] text-xs text-[#262222] focus:outline-none focus:border-[#B87882]"
+                />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-semibold text-[#292525] uppercase tracking-wider mb-1.5">
-                    Preferred Date
-                  </label>
-                  <div className="relative">
-                    <Calendar className="w-4 h-4 text-[#756D6D] absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="date"
-                      required
-                      value={formData.date}
-                      onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2.5 bg-[#FAF8F5] border border-[#EAE4DC] rounded-xl text-xs text-[#292525] focus:outline-none focus:border-[#B77B83]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-[#292525] uppercase tracking-wider mb-1.5">
-                    Preferred Time
-                  </label>
-                  <div className="relative">
-                    <Clock className="w-4 h-4 text-[#756D6D] absolute left-3 top-1/2 -translate-y-1/2" />
-                    <select
-                      value={formData.time}
-                      onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                      className="w-full pl-9 pr-2 py-2.5 bg-[#FAF8F5] border border-[#EAE4DC] rounded-xl text-xs text-[#292525] focus:outline-none focus:border-[#B77B83]"
-                    >
-                      <option value="10:30 AM">10:30 AM</option>
-                      <option value="12:00 PM">12:00 PM</option>
-                      <option value="02:00 PM">02:00 PM</option>
-                      <option value="04:00 PM">04:00 PM</option>
-                      <option value="06:00 PM">06:00 PM</option>
-                      <option value="07:30 PM">07:30 PM</option>
-                    </select>
-                  </div>
-                </div>
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#262222] mb-1">
+                  Specific Requests / Event Notes
+                </label>
+                <textarea
+                  rows={2}
+                  placeholder="Share any specific requirements (e.g. event time, outfit color, hair length)..."
+                  value={formData.notes}
+                  onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#E8C8C8] text-xs text-[#262222] focus:outline-none focus:border-[#B87882]"
+                />
               </div>
 
-              <div className="pt-2">
+              {/* Action */}
+              <div className="pt-2 flex flex-col gap-2">
                 <button
                   type="submit"
-                  className="w-full py-3 bg-[#B77B83] text-white font-semibold rounded-xl hover:bg-[#A36971] transition-all shadow-md flex items-center justify-center gap-2 group text-xs uppercase tracking-wider"
+                  className="w-full py-3 bg-[#B87882] text-white text-xs font-semibold uppercase tracking-wider rounded-xl hover:bg-[#a2646e] transition-colors shadow-soft min-h-[44px]"
                 >
-                  <Sparkles className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                  REQUEST APPOINTMENT
+                  Prepare Inquiry Details
                 </button>
+                
+                <a
+                  href={GLAM11_INFO.phoneLink}
+                  className="w-full text-center py-3 border border-[#262222]/20 text-[#262222] text-xs font-semibold uppercase tracking-wider rounded-xl hover:bg-[#E8C8C8]/20 transition-colors min-h-[44px] flex items-center justify-center"
+                >
+                  Or Call Direct: +91 70077 22764
+                </a>
               </div>
-
-              <p className="text-[11px] text-[#756D6D] text-center pt-1">
-                Demo interaction only. Hours: 10:00 AM – 9:00 PM Daily.
-              </p>
             </form>
-          )}
-        </div>
+          </div>
+        ) : (
+          /* Inquiry Feedback View - Explicitly NOT implying instant online booking completion */
+          <div className="text-center py-4 space-y-5">
+            <div className="w-12 h-12 rounded-full bg-[#E8C8C8]/40 text-[#B87882] flex items-center justify-center mx-auto">
+              <CheckCircle2 className="w-7 h-7" />
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="font-serif text-2xl font-bold text-[#262222]">
+                Inquiry Details Prepared
+              </h3>
+              <p className="text-xs text-[#756E6E] font-light leading-relaxed max-w-sm mx-auto">
+                Thank you for your interest, <strong className="font-semibold text-[#262222]">{formData.name || "valued client"}</strong>! Since Glam 11 operates on direct phone confirmations, please place a quick call to verify immediate slot availability.
+              </p>
+            </div>
+
+            <div className="p-4 bg-white rounded-2xl border border-[#E8C8C8]/40 text-left space-y-1.5 text-xs text-[#262222]">
+              <p><strong className="font-semibold">Selected Service:</strong> {formData.service}</p>
+              {formData.date && <p><strong className="font-semibold">Preferred Date:</strong> {formData.date}</p>}
+              <p><strong className="font-semibold">Studio Location:</strong> Naka Hindola, Lucknow</p>
+            </div>
+
+            <div className="space-y-2 pt-2">
+              <a
+                href={GLAM11_INFO.phoneLink}
+                className="w-full inline-flex items-center justify-center gap-2 py-3.5 bg-[#B87882] text-white text-xs font-semibold uppercase tracking-wider rounded-xl shadow-soft hover:bg-[#a2646e] transition-colors min-h-[44px]"
+              >
+                <Phone className="w-4 h-4" />
+                <span>Call +91 70077 22764 Now</span>
+              </a>
+
+              <button
+                onClick={handleReset}
+                className="text-xs text-[#756E6E] hover:text-[#262222] underline pt-1 block mx-auto py-2"
+              >
+                Close Window
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
-};
+}

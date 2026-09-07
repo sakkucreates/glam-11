@@ -2,57 +2,87 @@
 
 @layer base {
   :root {
-    --bg-main: #FAF8F5;
-    --card-bg: #FFFFFF;
-    --accent-soft: #E8C7C7;
-    --accent-rose: #B77B83;
-    --accent-gold: #C9A66B;
-    --text-primary: #292525;
-    --text-secondary: #756D6D;
-    --border-color: #EAE4DC;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
   }
 
   body {
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #FBF8F6;
+    color: #262222;
+    font-family: var(--font-sans);
   }
 
-  h1, h2, h3, h4, .font-serif {
-    font-family: 'Playfair Display', Georgia, serif;
+  h1, h2, h3, .font-serif {
+    font-family: var(--font-serif);
   }
 }
 
-/* Custom Font Utilities */
-.font-heading, .font-serif {
-  font-family: 'Playfair Display', Georgia, serif;
+/* Custom Utilities for Glam 11 Aesthetic */
+.bg-warm-bg {
+  background-color: #FBF8F6;
 }
 
-.font-body, .font-sans {
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+.text-primary-dark {
+  color: #262222;
 }
 
-/* Keyframe animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+.bg-soft-blush {
+  background-color: #E8C8C8;
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.text-rose-accent {
+  color: #B87882;
 }
 
-/* Custom scrollbar */
+.bg-rose-accent {
+  background-color: #B87882;
+}
+
+.border-rose-accent {
+  border-color: #B87882;
+}
+
+.text-champagne {
+  color: #C8A36A;
+}
+
+.bg-champagne {
+  background-color: #C8A36A;
+}
+
+.border-champagne {
+  border-color: #C8A36A;
+}
+
+.text-muted-custom {
+  color: #756E6E;
+}
+
+/* Soft luxury shadows & transitions */
+.shadow-soft {
+  box-shadow: 0 10px 30px -10px rgba(38, 34, 34, 0.06);
+}
+
+.shadow-soft-lg {
+  box-shadow: 0 20px 40px -15px rgba(38, 34, 34, 0.1);
+}
+
+/* Smooth custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF8F5;
+  background: #FBF8F6;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D5CCC1;
+  background: #E8C8C8;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #B77B83;
+  background: #B87882;
 }

@@ -1,66 +1,56 @@
-"use client";
+import { Star, Clock, MapPin, Award } from "lucide-react";
+import { GLAM11_INFO } from "@/data/glam11Data";
 
-import React from "react";
-import { Star, MessageSquare, Clock, MapPin } from "lucide-react";
-import { SALON_INFO } from "../data/salonData";
-
-export const TrustBar: React.FC = () => {
-  const stats = [
-    {
-      value: "4.8",
-      label: "Google Rating",
-      icon: Star,
-      iconColor: "text-[#C9A66B]"
-    },
-    {
-      value: SALON_INFO.reviewsCount,
-      label: "Customer Reviews",
-      icon: MessageSquare,
-      iconColor: "text-[#B77B83]"
-    },
-    {
-      value: "10 AM – 9 PM",
-      label: "Open Daily",
-      icon: Clock,
-      iconColor: "text-[#B77B83]"
-    },
-    {
-      value: "Aliganj",
-      label: "Lucknow, UP",
-      icon: MapPin,
-      iconColor: "text-[#B77B83]"
-    }
-  ];
-
+export default function TrustBar() {
   return (
-    <section className="py-8 bg-white border-y border-[#EAE4DC]">
+    <section className="bg-white border-y border-[#E8C8C8]/40 py-6 shadow-soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-[#EAE4DC]/60">
-          {stats.map((stat, idx) => {
-            const Icon = stat.icon;
-            return (
-              <div
-                key={idx}
-                className={`flex items-center justify-center gap-4 text-center sm:text-left ${
-                  idx > 0 ? "pt-4 sm:pt-0 sm:pl-6" : ""
-                }`}
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#FAF8F5] border border-[#EAE4DC] flex items-center justify-center shrink-0">
-                  <Icon className={`w-6 h-6 ${stat.iconColor}`} />
-                </div>
-                <div>
-                  <div className="text-xl sm:text-2xl font-serif font-bold text-[#292525]">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs uppercase tracking-wider text-[#756D6D] font-medium">
-                    {stat.label}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-[#E8C8C8]/30">
+          {/* Point 1 */}
+          <div className="flex items-center justify-center md:justify-start gap-3.5 pt-4 md:pt-0 md:px-4">
+            <div className="w-10 h-10 rounded-full bg-[#E8C8C8]/20 flex items-center justify-center shrink-0">
+              <Star className="w-5 h-5 text-[#C8A36A] fill-current" />
+            </div>
+            <div>
+              <p className="font-serif text-lg font-bold text-[#262222]">{GLAM11_INFO.rating} Rating</p>
+              <p className="text-xs text-[#756E6E]">Across {GLAM11_INFO.reviewsCount} Google Reviews</p>
+            </div>
+          </div>
+
+          {/* Point 2 */}
+          <div className="flex items-center justify-center md:justify-start gap-3.5 pt-4 md:pt-0 md:px-4">
+            <div className="w-10 h-10 rounded-full bg-[#E8C8C8]/20 flex items-center justify-center shrink-0">
+              <Award className="w-5 h-5 text-[#B87882]" />
+            </div>
+            <div>
+              <p className="font-serif text-lg font-bold text-[#262222]">Certified Lead</p>
+              <p className="text-xs text-[#756E6E]">International Artist & Educator</p>
+            </div>
+          </div>
+
+          {/* Point 3 */}
+          <div className="flex items-center justify-center md:justify-start gap-3.5 pt-4 md:pt-0 md:px-4">
+            <div className="w-10 h-10 rounded-full bg-[#E8C8C8]/20 flex items-center justify-center shrink-0">
+              <Clock className="w-5 h-5 text-[#B87882]" />
+            </div>
+            <div>
+              <p className="font-serif text-lg font-bold text-[#262222]">Mon - Sun</p>
+              <p className="text-xs text-[#756E6E]">{GLAM11_INFO.hours}</p>
+            </div>
+          </div>
+
+          {/* Point 4 */}
+          <div className="flex items-center justify-center md:justify-start gap-3.5 pt-4 md:pt-0 md:px-4">
+            <div className="w-10 h-10 rounded-full bg-[#E8C8C8]/20 flex items-center justify-center shrink-0">
+              <MapPin className="w-5 h-5 text-[#B87882]" />
+            </div>
+            <div>
+              <p className="font-serif text-lg font-bold text-[#262222]">Prime Studio</p>
+              <p className="text-xs text-[#756E6E]">Naka Hindola, Lucknow</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
-};
+}

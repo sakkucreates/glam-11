@@ -1,86 +1,82 @@
 "use client";
 
-import React, { useState } from "react";
-import { Navbar } from "../components/Navbar";
-import { Hero } from "../components/Hero";
-import { TrustBar } from "../components/TrustBar";
-import { Services } from "../components/Services";
-import { FeaturedHair } from "../components/FeaturedHair";
-import { BridalSection } from "../components/BridalSection";
-import { AboutSection } from "../components/AboutSection";
-import { BrandsSection } from "../components/BrandsSection";
-import { Gallery } from "../components/Gallery";
-import { ReviewsSection } from "../components/ReviewsSection";
-import { WhyChooseUs } from "../components/WhyChooseUs";
-import { LocationSection } from "../components/LocationSection";
-import { Footer } from "../components/Footer";
-import { AppointmentModal } from "../components/AppointmentModal";
+import { useState } from "react";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import TrustBar from "@/components/TrustBar";
+import SignatureServices from "@/components/SignatureServices";
+import BridalSection from "@/components/BridalSection";
+import HairSection from "@/components/HairSection";
+import NailSection from "@/components/NailSection";
+import AboutSection from "@/components/AboutSection";
+import VisualGallery from "@/components/VisualGallery";
+import CustomerReviews from "@/components/CustomerReviews";
+import WhyChooseUs from "@/components/WhyChooseUs";
+import LocationSection from "@/components/LocationSection";
+import FinalCTA from "@/components/FinalCTA";
+import Footer from "@/components/Footer";
+import AppointmentModal from "@/components/AppointmentModal";
 
 export default function Home() {
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<string>("Haircut & Styling");
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
 
-  const handleOpenBooking = (serviceName?: string) => {
-    if (serviceName) {
-      setSelectedService(serviceName);
-    }
-    setIsBookingOpen(true);
+  const handleOpenInquiry = () => {
+    setIsInquiryOpen(true);
   };
 
-  const handleCloseBooking = () => {
-    setIsBookingOpen(false);
+  const handleCloseInquiry = () => {
+    setIsInquiryOpen(false);
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F5]">
+    <div className="min-h-screen bg-[#FBF8F6] text-[#262222] font-sans selection:bg-[#E8C8C8] selection:text-[#262222] overflow-x-hidden">
       {/* Sticky Navbar */}
-      <Navbar onOpenBooking={handleOpenBooking} />
+      <Navbar onOpenInquiry={handleOpenInquiry} />
 
-      {/* Main Page Sections */}
-      <main className="flex-grow">
-        {/* Hero Section */}
-        <Hero onOpenBooking={() => handleOpenBooking("Hero Consultation")} />
+      {/* Main Content Sections */}
+      <main>
+        {/* 2. Hero Section */}
+        <Hero onOpenInquiry={handleOpenInquiry} />
 
-        {/* Trust & Stats Bar */}
+        {/* 3. Trust Bar */}
         <TrustBar />
 
-        {/* Services Group Section */}
-        <Services onOpenBooking={handleOpenBooking} />
+        {/* 4. Signature Services */}
+        <SignatureServices onOpenInquiry={handleOpenInquiry} />
 
-        {/* Featured Hair Styling & Colour */}
-        <FeaturedHair onOpenBooking={handleOpenBooking} />
+        {/* 5. Bridal Makeup Feature */}
+        <BridalSection onOpenInquiry={handleOpenInquiry} />
 
-        {/* Bridal & Makeover Showcase */}
-        <BridalSection onOpenBooking={handleOpenBooking} />
+        {/* 6. Hair & Styling */}
+        <HairSection onOpenInquiry={handleOpenInquiry} />
 
-        {/* Concise About Section */}
+        {/* 7. Nail Art / Nail Extensions */}
+        <NailSection onOpenInquiry={handleOpenInquiry} />
+
+        {/* 8. About Glam 11 */}
         <AboutSection />
 
-        {/* Professional Products Brands */}
-        <BrandsSection />
+        {/* 9. Visual Gallery */}
+        <VisualGallery />
 
-        {/* Curated Gallery & Interactive Lightbox */}
-        <Gallery />
+        {/* 10. Customer Reviews */}
+        <CustomerReviews />
 
-        {/* Verified Google Customer Reviews */}
-        <ReviewsSection />
-
-        {/* Why Choose Green Trends */}
+        {/* 11. Why Choose Glam 11 */}
         <WhyChooseUs />
 
-        {/* Location, Contact & Operating Hours */}
-        <LocationSection onOpenBooking={() => handleOpenBooking("Location Inquiry")} />
+        {/* 12. Location + Opening Hours */}
+        <LocationSection />
+
+        {/* 13. Final CTA */}
+        <FinalCTA onOpenInquiry={handleOpenInquiry} />
       </main>
 
-      {/* Footer */}
-      <Footer onOpenBooking={() => handleOpenBooking("Footer Booking")} />
+      {/* 14. Footer */}
+      <Footer />
 
-      {/* Appointment Demo Modal */}
-      <AppointmentModal
-        isOpen={isBookingOpen}
-        onClose={handleCloseBooking}
-        defaultService={selectedService}
-      />
+      {/* Appointment Inquiry Modal */}
+      <AppointmentModal isOpen={isInquiryOpen} onClose={handleCloseInquiry} />
     </div>
   );
 }

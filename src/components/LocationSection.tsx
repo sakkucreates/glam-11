@@ -1,165 +1,133 @@
-"use client";
+import { MapPin, Phone, Clock, ArrowUpRight, Sparkles } from "lucide-react";
+import { GLAM11_INFO } from "@/data/glam11Data";
 
-import React from "react";
-import { SALON_INFO } from "../data/salonData";
-import { MapPin, Phone, Clock, Navigation, Calendar, ExternalLink } from "lucide-react";
-
-interface LocationSectionProps {
-  onOpenBooking: () => void;
-}
-
-export const LocationSection: React.FC<LocationSectionProps> = ({ onOpenBooking }) => {
+export default function LocationSection() {
   return (
-    <section id="location" className="py-20 bg-white border-b border-[#EAE4DC]">
+    <section id="location" className="py-20 bg-[#FBF8F6] border-t border-[#E8C8C8]/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-xs font-semibold uppercase tracking-widest text-[#B77B83]">
-            Visit Us in Aliganj
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#292525] mt-2 mb-4">
-            Location & Operating Hours
-          </h2>
-          <p className="text-sm sm:text-base text-[#756D6D]">
-            Conveniently located near Kendriya Bhawan on Purania Road in Sector E, Aliganj, Lucknow.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          
-          {/* Left Details Card */}
-          <div className="lg:col-span-5 bg-[#FAF8F5] p-8 rounded-3xl border border-[#EAE4DC] flex flex-col justify-between space-y-6">
-            
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-xl font-serif font-bold text-[#292525] mb-2">
-                  Green Trends Aliganj
-                </h3>
-                <p className="text-xs font-medium uppercase tracking-wider text-[#B77B83]">
-                  Unisex Hair & Style Salon And Makeup Studio
-                </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left Column: Contact Card */}
+          <div className="lg:col-span-6 space-y-8">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E8C8C8]/30 text-[#B87882] text-xs font-semibold uppercase tracking-wider">
+                <MapPin className="w-3.5 h-3.5" />
+                <span>Visit Our Studio</span>
               </div>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#262222]">
+                Location & Studio Hours
+              </h2>
+              <p className="text-sm text-[#756E6E] font-light">
+                Conveniently located at Rajendra Prasad Dwar in Naka Hindola, Lucknow. Visit us or call to inquire about appointment availability.
+              </p>
+            </div>
 
+            {/* Info Cards */}
+            <div className="space-y-4">
               {/* Address */}
-              <div className="flex items-start gap-3.5 pt-2">
-                <div className="w-10 h-10 rounded-xl bg-white border border-[#EAE4DC] flex items-center justify-center shrink-0 text-[#B77B83]">
+              <div className="p-5 bg-white rounded-2xl border border-[#E8C8C8]/40 shadow-soft flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-[#E8C8C8]/30 text-[#B87882] flex items-center justify-center shrink-0">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#292525] mb-1">
-                    Exact Address
-                  </div>
-                  <div className="text-xs sm:text-sm text-[#756D6D] leading-relaxed">
-                    {SALON_INFO.address}
-                  </div>
+                  <h3 className="font-serif text-base font-bold text-[#262222]">Exact Studio Address</h3>
+                  <p className="text-xs text-[#756E6E] mt-1 font-light leading-relaxed">
+                    {GLAM11_INFO.address}
+                  </p>
                 </div>
               </div>
 
               {/* Phone */}
-              <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-white border border-[#EAE4DC] flex items-center justify-center shrink-0 text-[#B77B83]">
+              <div className="p-5 bg-white rounded-2xl border border-[#E8C8C8]/40 shadow-soft flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-[#E8C8C8]/30 text-[#B87882] flex items-center justify-center shrink-0">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#292525] mb-1">
-                    Phone Number
-                  </div>
+                  <h3 className="font-serif text-base font-bold text-[#262222]">Direct Phone Contact</h3>
                   <a
-                    href={SALON_INFO.phoneRaw}
-                    className="text-sm font-semibold text-[#292525] hover:text-[#B77B83] transition-colors"
+                    href={GLAM11_INFO.phoneLink}
+                    className="text-sm font-semibold text-[#B87882] hover:underline mt-0.5 inline-block"
                   >
-                    {SALON_INFO.phone}
+                    {GLAM11_INFO.phoneFormatted}
                   </a>
-                  <div className="text-[11px] text-[#756D6D]">
-                    Call for appointments & inquiries
-                  </div>
+                  <p className="text-[11px] text-[#756E6E] font-light">Call for immediate inquiries & consultations</p>
                 </div>
               </div>
 
               {/* Hours */}
-              <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-white border border-[#EAE4DC] flex items-center justify-center shrink-0 text-[#B77B83]">
+              <div className="p-5 bg-white rounded-2xl border border-[#E8C8C8]/40 shadow-soft flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-[#E8C8C8]/30 text-[#B87882] flex items-center justify-center shrink-0">
                   <Clock className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#292525] mb-1">
-                    Operating Hours
-                  </div>
-                  <div className="text-xs sm:text-sm text-[#292525] font-semibold">
-                    Monday – Sunday
-                  </div>
-                  <div className="text-xs text-[#756D6D]">
-                    10:00 AM – 9:00 PM
-                  </div>
+                  <h3 className="font-serif text-base font-bold text-[#262222]">Opening Hours</h3>
+                  <p className="text-xs text-[#262222] font-semibold mt-1">
+                    {GLAM11_INFO.days}
+                  </p>
+                  <p className="text-xs text-[#756E6E] font-light">
+                    {GLAM11_INFO.hours}
+                  </p>
                 </div>
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="pt-6 border-t border-[#EAE4DC] space-y-3">
-              <div className="grid grid-cols-2 gap-3">
-                <a
-                  href={SALON_INFO.phoneRaw}
-                  className="py-3 px-4 bg-white border border-[#EAE4DC] hover:border-[#B77B83] text-[#292525] text-xs font-semibold uppercase tracking-wider rounded-xl transition-colors shadow-2xs flex items-center justify-center gap-2"
-                >
-                  <Phone className="w-4 h-4 text-[#B77B83]" />
-                  CALL NOW
-                </a>
-
-                <a
-                  href={SALON_INFO.googleMapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="py-3 px-4 bg-white border border-[#EAE4DC] hover:border-[#B77B83] text-[#292525] text-xs font-semibold uppercase tracking-wider rounded-xl transition-colors shadow-2xs flex items-center justify-center gap-2"
-                >
-                  <Navigation className="w-4 h-4 text-[#B77B83]" />
-                  DIRECTIONS
-                </a>
-              </div>
-
-              <button
-                onClick={onOpenBooking}
-                className="w-full py-3.5 bg-[#B77B83] hover:bg-[#A36971] text-white text-xs font-semibold uppercase tracking-widest rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2"
-              >
-                <Calendar className="w-4 h-4" />
-                BOOK AN APPOINTMENT
-              </button>
-            </div>
-
-          </div>
-
-          {/* Right Map Embed Card */}
-          <div className="lg:col-span-7 bg-[#FAF8F5] rounded-3xl overflow-hidden border border-[#EAE4DC] relative min-h-[350px] lg:min-h-[450px] shadow-sm flex flex-col">
-            <iframe
-              title="Green Trends Aliganj Google Maps Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3558.8471241852086!2d80.94191!3d26.87652!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bf1dfbeebd795%3A0xe207f2a5dcddc38f!2sGreen%20Trends%20Unisex%20Hair%20%26%20Style%20Salon%20And%20Makeup%20Studio-%20Aliganj!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-              className="w-full h-full min-h-[350px] border-0 flex-1"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-            
-            <div className="bg-white p-4 border-t border-[#EAE4DC] flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#C9A66B] animate-ping"></span>
-                <span className="text-xs font-semibold text-[#292525]">
-                  Purania Rd, near Kendriya Bhawan, Sector E, Aliganj
-                </span>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <a
-                href={SALON_INFO.googleMapsUrl}
+                href={GLAM11_INFO.phoneLink}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-[#B87882] text-white text-xs font-semibold uppercase tracking-wider rounded-full shadow-soft hover:bg-[#a2646e] transition-all"
+              >
+                <Phone className="w-4 h-4" />
+                <span>Call Glam 11</span>
+              </a>
+
+              <a
+                href={GLAM11_INFO.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-semibold text-[#B77B83] hover:underline flex items-center gap-1"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[#262222]/20 text-[#262222] text-xs font-semibold uppercase tracking-wider rounded-full hover:border-[#B87882] hover:text-[#B87882] transition-all"
               >
-                Open in Google Maps
-                <ExternalLink className="w-3.5 h-3.5" />
+                <span>Open in Google Maps</span>
+                <ArrowUpRight className="w-4 h-4 text-[#B87882]" />
               </a>
             </div>
           </div>
 
+          {/* Right Column: Visual Map / Directions Card */}
+          <div className="lg:col-span-6">
+            <div className="bg-white rounded-3xl p-8 border border-[#E8C8C8]/60 shadow-soft-lg space-y-6 text-center lg:text-left">
+              <div className="w-12 h-12 rounded-2xl bg-[#E8C8C8]/30 text-[#B87882] flex items-center justify-center mx-auto lg:mx-0">
+                <Sparkles className="w-6 h-6" />
+              </div>
+
+              <div className="space-y-2">
+                <h3 className="font-serif text-2xl font-bold text-[#262222]">
+                  Visiting Naka Hindola, Lucknow
+                </h3>
+                <p className="text-xs text-[#756E6E] font-light leading-relaxed">
+                  Our salon studio is positioned right at <strong className="font-semibold text-[#262222]">Rajendra Prasad Dwar</strong> in Naka Hindola. We welcome walk-in consultations during business hours.
+                </p>
+              </div>
+
+              <div className="p-4 bg-[#FBF8F6] rounded-xl border border-[#E8C8C8]/40 space-y-2 text-left">
+                <p className="text-xs font-semibold text-[#262222]">📍 Landmark Reference:</p>
+                <p className="text-xs text-[#756E6E] font-light">
+                  Rajendra Prasad Dwar, Naka Hindola, Lucknow, UP 226004
+                </p>
+              </div>
+
+              <a
+                href={GLAM11_INFO.googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#262222] text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#B87882] transition-colors"
+              >
+                <span>Get Directions via Google Maps</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
-};
+}
